@@ -60,7 +60,10 @@ public final class PhOutput extends PhDefault {
             "flush",
             new AtComposite(
                 this,
-                rho -> new Flush(rho, stream)
+                rho -> {
+                    stream.flush();
+                    return new Data.ToPhi(true);
+                }
             )
         );
     }
@@ -79,22 +82,6 @@ public final class PhOutput extends PhDefault {
                                 .strong(Long.class)
                                 .byteValue()
                         );
-                        return new Data.ToPhi(true);
-                    }
-                )
-            );
-        }
-    }
-
-    private static final class Flush extends PhDefault {
-        public Flush(final Phi sigma, final OutputStream stream) {
-            super(sigma);
-            this.add(
-                "φ",
-                new AtComposite(
-                    this,
-                    rho -> {
-                        stream.flush();
                         return new Data.ToPhi(true);
                     }
                 )
