@@ -40,6 +40,53 @@ seq > @
   output.flush
 ```
 
+## Objects
+
+### socket `/string`
+
+`[address port]`
+where adress is a string, and port is a number
+
+This code will print out "localhost:8080"
+
+```
+stdout 
+  socket 
+    "localhost" 
+    8080
+```
+
+#### connect `/connection`
+Connects to the destination and returns `connection` object
+
+#### listen `/server-connection`
+Starts a server and returns it
+
+### connection `/bool`
+
+`TRUE` if open
+
+#### as-input `/bool`
+
+`TRUE` if open
+
+Has one method: `read`, which returns the next byte or -1 if the end has been reached.
+
+#### as-output `/bool`
+
+`TRUE` if open
+
+Has two methods: 
+- `write`: takes byte and writes it to the connection
+- `flush`: flushes the data
+
+### server-connection `/bool`
+
+`TRUE` if open
+
+#### accept `/connection`
+Accepts a client and returns the connection
+
 ## How to Contribute
 
 Fork repository, make changes, send us a pull request.
