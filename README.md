@@ -29,13 +29,13 @@ Server:
 +alias org.eolang.net.socket
 
 seq > @
-  accept. > conn
-    listen.
-      socket
-        "localhost"
-        8080
   write.
-    conn.as-output > output
+    as-output. > output
+      accept. > conn
+        listen.
+          socket
+            "localhost"
+            8080
     conn.as-input.read
   output.flush
 ```
