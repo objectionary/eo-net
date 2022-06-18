@@ -61,7 +61,7 @@ public final class PhInput extends PhDefault {
             "read",
             new AtComposite(
                 this,
-                rho -> new Data.ToPhi(stream.read())
+                rho -> new Data.ToPhi((long) stream.read())
             )
         );
     }
