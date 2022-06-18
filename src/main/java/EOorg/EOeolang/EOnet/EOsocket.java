@@ -27,6 +27,7 @@ package EOorg.EOeolang.EOnet;
 import EOorg.EOeolang.EOtxt.EOsprintf;
 import org.eolang.*;
 import org.eolang.net.PhConnectedSocket;
+import org.eolang.net.PhListeningSocket;
 
 import java.net.*;
 
@@ -62,6 +63,17 @@ public final class EOsocket extends PhDefault {
                     final Socket connection = new Socket();
                     connection.connect(address(rho));
                     return new PhConnectedSocket(rho.copy(), connection);
+                }
+            )
+        );
+        this.add(
+            "listen",
+            new AtComposite(
+                this,
+                rho -> {
+                    final ServerSocket server = new ServerSocket();
+                    server.bind(address(rho));
+                    return new PhListeningSocket(rho.copy(), server);
                 }
             )
         );
