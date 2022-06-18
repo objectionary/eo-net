@@ -1,0 +1,68 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2022 kerelape
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package org.eolang.net;
+
+import org.eolang.*;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+
+/**
+ * Input.
+ *
+ * <pre>
+ * Attributes:
+ *      stream — java.io.InputStream
+ *      σ — Parent
+ *      read — Returns object of type int, which is the next byte in the stream (-1 means the end's been reached)
+ * </pre>
+ *
+ * @since 0.0.0
+ */
+public final class PhInput extends PhDefault {
+
+    /**
+     * Ctor.
+     *
+     * @param sigma Parent
+     */
+    public PhInput(final Phi sigma, final InputStream stream) {
+        super(sigma);
+        this.add(
+            "φ",
+            new AtComposite(
+                this,
+                rho -> new PhCloseable(new Data.ToPhi(true), stream)
+            )
+        );
+        this.add(
+            "read",
+            new AtComposite(
+                this,
+                rho -> new Data.ToPhi(stream.read())
+            )
+        );
+    }
+}

@@ -9,3 +9,15 @@
       "yandex.ru"
       80
     "yandex.ru:80"
+
+[] > sends
+  seq > @
+    write.
+      as-output. > output
+        connect.
+          socket
+            "localhost"
+            8080
+      80
+    flush.
+      output
