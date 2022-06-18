@@ -22,12 +22,23 @@
 +package org.eolang.net
 +rt jvm org.eolang.net:0.0.0
 +version 0.0.0
++alias org.eolang.txt.sprintf
 
-# Socket.
-#
-# φ — "address:port"
-#
-# Methods:
-#   connect — Returns connection
-#   listen  — Returns server-connection
-[address port] > socket /string
+[address port] > socket
+  sprintf > @
+    "%s:%d"
+    address
+    port
+
+  [] > connect /socket
+
+  [] > listen /socket
+
+  [] > accept /socket
+
+  [] > as-input /bool
+
+  [] > as-output /bool
+
+  [] > close /bool
+
