@@ -21,17 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+// @checkstyle PackageNameCheck (1 line)
 package EOorg.EOeolang.EOnet;
 
 import EOorg.EOeolang.EOtxt.EOsprintf;
-import org.eolang.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import org.eolang.AtComposite;
+import org.eolang.AtFree;
+import org.eolang.Data;
+import org.eolang.Param;
+import org.eolang.PhDefault;
+import org.eolang.PhWith;
+import org.eolang.Phi;
 import org.eolang.net.PhConnectedSocket;
 import org.eolang.net.PhListeningSocket;
 
-import java.net.*;
-
+/**
+ * Socket.
+ *
+ * @since 0.0.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (100 lines)
+ */
 public final class EOsocket extends PhDefault {
+
+    /**
+     * Ctor.
+     *
+     * @param sigma Parent.
+     */
     public EOsocket(final Phi sigma) {
         super(sigma);
         this.add("address", new AtFree());
@@ -80,9 +101,13 @@ public final class EOsocket extends PhDefault {
     }
 
     /**
-     * Parses InetSocketAddress from EOsocket
+     * Parses InetSocketAddress from EOsocket.
+     *
+     * @param socket EOsocket.
+     * @return Parsed socket address.
+     * @throws UnknownHostException If could not parse.
      */
-    private static InetSocketAddress address(Phi socket) throws UnknownHostException {
+    private static InetSocketAddress address(final Phi socket) throws UnknownHostException {
         return new InetSocketAddress(
             InetAddress.getByName(
                 new Param(socket, "address").strong(String.class)

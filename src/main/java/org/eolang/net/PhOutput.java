@@ -25,7 +25,12 @@
 package org.eolang.net;
 
 import java.io.OutputStream;
-import org.eolang.*;
+import org.eolang.AtComposite;
+import org.eolang.AtFree;
+import org.eolang.Data;
+import org.eolang.Param;
+import org.eolang.PhDefault;
+import org.eolang.Phi;
 
 /**
  * Input.
@@ -37,8 +42,8 @@ public final class PhOutput extends PhDefault {
     /**
      * Ctor.
      *
-     * @param sigma Parent
-     * @param stream Stream
+     * @param sigma Parent.
+     * @param stream Stream.
      */
     public PhOutput(final Phi sigma, final OutputStream stream) {
         super(sigma);
@@ -68,8 +73,20 @@ public final class PhOutput extends PhDefault {
         );
     }
 
+    /**
+     * Write.
+     *
+     * @since 0.0.0
+     */
     private static final class Write extends PhDefault {
-        public Write(final Phi sigma, final OutputStream stream) {
+
+        /**
+         * Ctor.
+         *
+         * @param sigma Parent.
+         * @param stream Stream.
+         */
+        Write(final Phi sigma, final OutputStream stream) {
             super(sigma);
             this.add("data", new AtFree());
             this.add(

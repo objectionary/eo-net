@@ -21,10 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+// @checkstyle PackageNameCheck (1 line)
 package EOorg.EOeolang.EOnet;
 
-import java.util.Random;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhWith;
@@ -33,8 +32,18 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Sockets tests.
+ *
+ * @since 0.0.0
+ */
 public final class EOsocketTest {
 
+    /**
+     * Integration test.
+     *
+     * Tests that socket can connect, listen, accept, write, and read data.
+     */
     @Test
     public void echo() {
         final Phi socket = new PhWith(
@@ -46,23 +55,24 @@ public final class EOsocketTest {
             "port",
             new Data.ToPhi(8080L)
         );
-        new Thread(() -> {
-            final Phi connection = socket
-                .attr("listen").get()
-                .attr("accept").get();
-            new Dataized(
-                new PhWith(
-                    connection
-                        .attr("as-output").get()
-                        .attr("write").get(),
-                    "data",
-                    connection
-                        .attr("as-input").get()
-                        .attr("read").get()
-                )
-            ).take();
-        }).start();
-        final long data = (byte) new Random().nextLong();
+        final Phi server = socket.attr("listen").get();
+        new Thread(
+            () -> {
+                final Phi connection = server.attr("accept").get();
+                new Dataized(
+                    new PhWith(
+                        connection
+                            .attr("as-output").get()
+                            .attr("write").get(),
+                        "data",
+                        connection
+                            .attr("as-input").get()
+                            .attr("read").get()
+                    )
+                ).take();
+            }
+        ).start();
+        final byte data = 34;
         final Phi connection = socket.attr("connect").get();
         new Dataized(
             new PhWith(
@@ -70,14 +80,14 @@ public final class EOsocketTest {
                     .attr("as-output").get()
                     .attr("write").get(),
                 "data",
-                new Data.ToPhi((long)(byte)data)
+                new Data.ToPhi((long) data)
             )
         ).take();
-        final long response = new Dataized(
+        final byte response = new Dataized(
             connection
                 .attr("as-input").get()
                 .attr("read").get()
-        ).take(Long.class);
+        ).take(Long.class).byteValue();
         new Dataized(
             connection.attr("close").get()
         ).take();

@@ -24,9 +24,11 @@
 
 package org.eolang.net;
 
-import org.eolang.*;
-
 import java.net.ServerSocket;
+import org.eolang.AtComposite;
+import org.eolang.ExFailure;
+import org.eolang.PhDefault;
+import org.eolang.Phi;
 
 /**
  * Listening socket.
@@ -38,10 +40,10 @@ public final class PhListeningSocket extends PhDefault {
     /**
      * Ctor.
      *
-     * @param sigma Original socket
-     * @param server Server
+     * @param sigma Original socket.
+     * @param server Server.
      */
-    public PhListeningSocket(final Phi sigma, ServerSocket server) {
+    public PhListeningSocket(final Phi sigma, final ServerSocket server) {
         super(sigma);
         this.add(
             "φ",

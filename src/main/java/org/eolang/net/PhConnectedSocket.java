@@ -25,16 +25,14 @@
 package org.eolang.net;
 
 import java.net.Socket;
-import org.eolang.*;
+import org.eolang.AtComposite;
+import org.eolang.ExFailure;
+import org.eolang.PhDefault;
+import org.eolang.Phi;
 
 /**
  * Connected socket.
  *
- * <pre>
- * Attributes:
- *      connection — java.net.Socket
- *      σ — Default EO socket
- * </pre>
  * @since 0.0.0
  */
 public final class PhConnectedSocket extends PhDefault {
@@ -43,6 +41,7 @@ public final class PhConnectedSocket extends PhDefault {
      * Ctor.
      *
      * @param sigma Parent (EOsocket).
+     * @param connection Socket connection.
      */
     public PhConnectedSocket(final Phi sigma, final Socket connection) {
         super(sigma);

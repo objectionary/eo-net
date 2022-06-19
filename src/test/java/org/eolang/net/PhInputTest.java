@@ -24,6 +24,9 @@
 
 package org.eolang.net;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
@@ -31,10 +34,16 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-
+/**
+ * PhInput tests.
+ *
+ * @since 0.0.0
+ */
 public final class PhInputTest {
 
+    /**
+     * Tests that PhInput can read data.
+     */
     @Test
     public void reads() {
         MatcherAssert.assertThat(
@@ -48,6 +57,9 @@ public final class PhInputTest {
         );
     }
 
+    /**
+     * Tests that PhInput can close the stream.
+     */
     @Test
     public void closes() {
         final InputStream stream = InputStream.nullInputStream();

@@ -24,16 +24,24 @@
 
 package org.eolang.net;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.Phi;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.hamcrest.MatcherAssert;
-import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * PhCloseable tests.
+ *
+ * @since 0.0.0
+ */
 public final class PhCloseableTest {
 
+    /**
+     * Tests that PhCloseable closes the underlying Closeable.
+     */
     @Test
     public void closes() {
         final AtomicBoolean closed = new AtomicBoolean(false);
@@ -49,8 +57,11 @@ public final class PhCloseableTest {
         );
     }
 
+    /**
+     * Tests that PhCloseable decorates the passed object.
+     */
     @Test
-    public void wraps() {
+    public void decorates() {
         MatcherAssert.assertThat(
             new Dataized(
                 new PhCloseable(

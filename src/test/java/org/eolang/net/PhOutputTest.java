@@ -25,6 +25,9 @@
 package org.eolang.net;
 
 import EOorg.EOeolang.EOseq;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Random;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhWith;
@@ -34,35 +37,40 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
-import java.util.Random;
-
+/**
+ * PhOutput tests.
+ *
+ * @since 0.0.0
+ */
 public final class PhOutputTest {
 
+    /**
+     * Tests that PhOutput can write.
+     */
     @Test
     public void writes() {
         final byte data = (byte) new Random().nextInt();
         final byte[] written = {-1};
-        final OutputStream output = new OutputStream() {
+        final OutputStream stream = new OutputStream() {
             @Override
-            public void write(int b) {
-                written[0] = (byte) b;
+            public void write(final int data) {
+                written[0] = (byte) data;
             }
         };
-        final PhOutput φOutput = new PhOutput(Phi.Φ, output);
+        final PhOutput output = new PhOutput(Phi.Φ, stream);
         new Dataized(
             new PhWith(
                 new PhWith(
                     new EOseq(Phi.Φ),
                     0,
                     new PhWith(
-                        φOutput.attr("write").get(),
+                        output.attr("write").get(),
                         "data",
                         new Data.ToPhi((long) data)
                     )
                 ),
                 1,
-                φOutput.attr("flush").get()
+                output.attr("flush").get()
             )
         ).take();
         MatcherAssert.assertThat(
@@ -71,6 +79,9 @@ public final class PhOutputTest {
         );
     }
 
+    /**
+     * Tests that PhOutput can close the output.
+     */
     @Test
     public void closes() {
         final OutputStream output = OutputStream.nullOutputStream();

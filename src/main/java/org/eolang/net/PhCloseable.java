@@ -24,9 +24,11 @@
 
 package org.eolang.net;
 
-import org.eolang.*;
-
 import java.io.Closeable;
+import org.eolang.AtComposite;
+import org.eolang.Data;
+import org.eolang.PhDefault;
+import org.eolang.Phi;
 
 /**
  * Closable Phi.
@@ -40,6 +42,7 @@ public final class PhCloseable extends PhDefault {
      * Ctor.
      *
      * @param sigma Parent.
+     * @param target The Closeable.
      */
     public PhCloseable(final Phi sigma, final Closeable target) {
         super(sigma);

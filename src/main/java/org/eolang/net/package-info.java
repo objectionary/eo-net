@@ -22,42 +22,9 @@
  * SOFTWARE.
  */
 
-package org.eolang.net;
-
-import java.io.InputStream;
-import org.eolang.AtComposite;
-import org.eolang.Data;
-import org.eolang.PhDefault;
-import org.eolang.Phi;
-
 /**
- * Input.
+ * Net objects.
  *
  * @since 0.0.0
  */
-public final class PhInput extends PhDefault {
-
-    /**
-     * Ctor.
-     *
-     * @param sigma Parent.
-     * @param stream The input.
-     */
-    public PhInput(final Phi sigma, final InputStream stream) {
-        super(sigma);
-        this.add(
-            "φ",
-            new AtComposite(
-                this,
-                rho -> new PhCloseable(new Data.ToPhi(true), stream)
-            )
-        );
-        this.add(
-            "read",
-            new AtComposite(
-                this,
-                rho -> new Data.ToPhi((long) stream.read())
-            )
-        );
-    }
-}
+package org.eolang.net;
