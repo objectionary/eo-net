@@ -28,6 +28,7 @@ import EOorg.EOeolang.EOseq;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhWith;
@@ -41,6 +42,7 @@ import org.junit.jupiter.api.Test;
  * PhOutput tests.
  *
  * @since 0.0.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (100 lines)
  */
 public final class PhOutputTest {
 
@@ -84,7 +86,21 @@ public final class PhOutputTest {
      */
     @Test
     public void closes() {
-        final OutputStream output = OutputStream.nullOutputStream();
+        final OutputStream output = new OutputStream() {
+            private final AtomicBoolean closed = new AtomicBoolean(false);
+
+            @Override
+            public void write(final int data) throws IOException {
+                if (this.closed.get()) {
+                    throw new IOException();
+                }
+            }
+
+            @Override
+            public void close() {
+                this.closed.set(true);
+            }
+        };
         new Dataized(
             new PhOutput(Phi.Φ, output).attr("close").get()
         ).take();
