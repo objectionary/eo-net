@@ -5,7 +5,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/kerelape/eo-sockets/blob/main/LICENSE.txt)
 
-[EOLANG](https://www.eolang.org) socket objects.
+[EOLANG](https://www.eolang.org) socket object.
 
 This is how to connect to a TCP server and send 88:
 ```
