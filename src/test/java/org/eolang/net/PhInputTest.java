@@ -27,6 +27,7 @@ package org.eolang.net;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.eolang.Dataized;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
@@ -62,7 +63,22 @@ public final class PhInputTest {
      */
     @Test
     public void closes() {
-        final InputStream stream = InputStream.nullInputStream();
+        final InputStream stream = new InputStream() {
+            private final AtomicBoolean closed = new AtomicBoolean(false);
+
+            @Override
+            public int read() throws IOException {
+                if (this.closed.get()) {
+                    throw new IOException();
+                }
+                return 0;
+            }
+
+            @Override
+            public void close() {
+                this.closed.set(true);
+            }
+        };
         new Dataized(
             new PhInput(Phi.Φ, stream)
                 .attr("close").get()
