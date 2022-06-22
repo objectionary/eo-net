@@ -4,6 +4,7 @@
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/kerelape/eo-sockets/blob/main/LICENSE.txt)
+[![codecov](https://github.com/objectionary/eo-net/actions/workflows/main.yml/badge.svg)](https://github.com/objectionary/eo-net/actions/workflows/main.yml)
 
 [EOLANG](https://www.eolang.org) socket object.
 
