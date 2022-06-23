@@ -33,8 +33,12 @@ SOFTWARE.
   <artifactId>net</artifactId>
   <version>0.0.0</version>
   <packaging>jar</packaging>
-  <name>sockets</name>
+  <name>eo-net</name>
   <description>Sockets for EO Programming Language</description>
+  <organization>
+    <name>EO</name>
+    <url>https://github.com/objectionary/eo-net</url>
+  </organization>
   <licenses>
     <license>
       <name>MIT</name>
@@ -42,6 +46,47 @@ SOFTWARE.
       <distribution>site</distribution>
     </license>
   </licenses>
+  <developers>
+    <developer>
+      <id>1</id>
+      <name>kerelape</name>
+      <email>kerelape@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+5</timezone>
+    </developer>
+    <developer>
+      <id>2</id>
+      <name>Yegor Bugayenko</name>
+      <email>yegor256@gmail.com</email>
+      <organization>yegor256.com</organization>
+      <organizationUrl>https://www.yegor256.com</organizationUrl>
+      <roles>
+        <role>Architect</role>
+      </roles>
+      <timezone>+3</timezone>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/objectionary/eo-net/issues</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:git:git@github.com:objectionary/eo-net.git</connection>
+    <developerConnection>scm:git:git@github.com:objectionary/eo-net.git</developerConnection>
+    <url>https://github.com/objectionary/eo-net</url>
+  </scm>
+  <ciManagement>
+    <system>rultor</system>
+    <url>https://www.rultor.com/s/eo-net</url>
+  </ciManagement>
+  <distributionManagement>
+    <site>
+      <id>github-pages</id>
+      <url>https://github.com/objectionary/eo-net</url>
+    </site>
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>org.eolang</groupId>
