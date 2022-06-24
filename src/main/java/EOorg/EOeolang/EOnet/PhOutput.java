@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+// @checkstyle PackageNameCheck (1 line)
 package EOorg.EOeolang.EOnet;
 
 import java.io.OutputStream;
