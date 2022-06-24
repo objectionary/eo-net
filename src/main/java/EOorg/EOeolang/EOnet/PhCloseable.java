@@ -22,9 +22,46 @@
  * SOFTWARE.
  */
 
+package EOorg.EOeolang.EOnet;
+
+import java.io.Closeable;
+import org.eolang.AtComposite;
+import org.eolang.Data;
+import org.eolang.PhDefault;
+import org.eolang.Phi;
+
 /**
- * Net objects.
+ * Closable Phi.
+ * Has target attribute of type Closeable, and close method that closes the target
  *
  * @since 0.0.0
  */
-package org.eolang.net;
+public final class PhCloseable extends PhDefault {
+
+    /**
+     * Ctor.
+     *
+     * @param sigma Parent.
+     * @param target The Closeable.
+     */
+    public PhCloseable(final Phi sigma, final Closeable target) {
+        super(sigma);
+        this.add(
+            "φ",
+            new AtComposite(
+                this,
+                rho -> rho.attr("σ").get()
+            )
+        );
+        this.add(
+            "close",
+            new AtComposite(
+                this,
+                rho -> {
+                    target.close();
+                    return new Data.ToPhi(true);
+                }
+            )
+        );
+    }
+}

@@ -22,70 +22,41 @@
  * SOFTWARE.
  */
 
-package org.eolang.net;
+package EOorg.EOeolang.EOnet;
 
-import java.net.Socket;
+import java.io.InputStream;
 import org.eolang.AtComposite;
-import org.eolang.ExFailure;
+import org.eolang.Data;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 
 /**
- * Connected socket.
+ * Input.
  *
  * @since 0.0.0
  */
-public final class PhConnectedSocket extends PhDefault {
+public final class PhInput extends PhDefault {
 
     /**
      * Ctor.
      *
-     * @param sigma Parent (EOsocket).
-     * @param connection Socket connection.
+     * @param sigma Parent.
+     * @param stream The input.
      */
-    public PhConnectedSocket(final Phi sigma, final Socket connection) {
+    public PhInput(final Phi sigma, final InputStream stream) {
         super(sigma);
         this.add(
             "φ",
             new AtComposite(
                 this,
-                rho -> new PhCloseable(rho.attr("σ").get(), connection)
+                rho -> new PhCloseable(new Data.ToPhi(true), stream)
             )
         );
         this.add(
-            "as-input",
+            "read",
             new AtComposite(
                 this,
-                rho -> new PhInput(rho, connection.getInputStream())
-            )
-        );
-        this.add(
-            "as-output",
-            new AtComposite(
-                this,
-                rho -> new PhOutput(rho, connection.getOutputStream())
-            )
-        );
-        this.add(
-            "listen",
-            new AtComposite(
-                this,
-                rho -> {
-                    throw new ExFailure(
-                        "This socket is already connected, and cannot be used for listening."
-                    );
-                }
-            )
-        );
-        this.add(
-            "connect",
-            new AtComposite(
-                this,
-                rho -> {
-                    throw new ExFailure(
-                        "Already connected."
-                    );
-                }
+                rho -> new Data.ToPhi((long) stream.read())
             )
         );
     }

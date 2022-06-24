@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package org.eolang.net;
+package EOorg.EOeolang.EOnet;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.eolang.Data;

@@ -37,8 +37,6 @@ import org.eolang.Param;
 import org.eolang.PhDefault;
 import org.eolang.PhWith;
 import org.eolang.Phi;
-import org.eolang.net.PhConnectedSocket;
-import org.eolang.net.PhListeningSocket;
 
 /**
  * Socket.

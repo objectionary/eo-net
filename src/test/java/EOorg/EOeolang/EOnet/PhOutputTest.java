@@ -22,13 +22,16 @@
  * SOFTWARE.
  */
 
-package org.eolang.net;
+package EOorg.EOeolang.EOnet;
 
-import java.io.ByteArrayInputStream;
+import EOorg.EOeolang.EOseq;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.eolang.Data;
 import org.eolang.Dataized;
+import org.eolang.PhWith;
 import org.eolang.Phi;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -36,42 +39,61 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * PhInput tests.
+ * PhOutput tests.
  *
  * @since 0.0.0
+ * @checkstyle ClassDataAbstractionCouplingCheck (100 lines)
  */
-public final class PhInputTest {
+public final class PhOutputTest {
 
     /**
-     * Tests that PhInput can read data.
+     * Tests that PhOutput can write.
      */
     @Test
-    public void reads() {
+    public void writes() {
+        final byte data = (byte) new Random().nextInt();
+        final byte[] written = {-1};
+        final OutputStream stream = new OutputStream() {
+            @Override
+            public void write(final int data) {
+                written[0] = (byte) data;
+            }
+        };
+        final PhOutput output = new PhOutput(Phi.Φ, stream);
+        new Dataized(
+            new PhWith(
+                new PhWith(
+                    new EOseq(Phi.Φ),
+                    0,
+                    new PhWith(
+                        output.attr("write").get(),
+                        "data",
+                        new Data.ToPhi((long) data)
+                    )
+                ),
+                1,
+                output.attr("flush").get()
+            )
+        ).take();
         MatcherAssert.assertThat(
-            new Dataized(
-                new PhInput(
-                    Phi.Φ,
-                    new ByteArrayInputStream("φ".getBytes())
-                ).attr("read").get()
-            ).take(Long.class).byteValue(),
-            Matchers.equalTo("φ".getBytes()[0])
+            written[0],
+            Matchers.equalTo(data)
         );
     }
 
     /**
-     * Tests that PhInput can close the stream.
+     * Tests that PhOutput can close the output.
      */
     @Test
     public void closes() {
-        final InputStream stream = new InputStream() {
+        final OutputStream output = new OutputStream() {
             private final AtomicBoolean closed = new AtomicBoolean(false);
 
             @Override
-            public int read() throws IOException {
+            public void write(final int data) throws IOException {
                 if (this.closed.get()) {
                     throw new IOException();
                 }
-                return 0;
             }
 
             @Override
@@ -80,9 +102,11 @@ public final class PhInputTest {
             }
         };
         new Dataized(
-            new PhInput(Phi.Φ, stream)
-                .attr("close").get()
+            new PhOutput(Phi.Φ, output).attr("close").get()
         ).take();
-        Assertions.assertThrows(IOException.class, stream::read);
+        Assertions.assertThrows(
+            IOException.class,
+            () -> output.write(0)
+        );
     }
 }

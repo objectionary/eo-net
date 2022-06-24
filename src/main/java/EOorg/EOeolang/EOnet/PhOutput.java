@@ -22,64 +22,87 @@
  * SOFTWARE.
  */
 
-package org.eolang.net;
+package EOorg.EOeolang.EOnet;
 
-import java.net.ServerSocket;
+import java.io.OutputStream;
 import org.eolang.AtComposite;
-import org.eolang.ExFailure;
+import org.eolang.AtFree;
+import org.eolang.Data;
+import org.eolang.Param;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 
 /**
- * Listening socket.
+ * Input.
  *
  * @since 0.0.0
  */
-public final class PhListeningSocket extends PhDefault {
+public final class PhOutput extends PhDefault {
 
     /**
      * Ctor.
      *
-     * @param sigma Original socket.
-     * @param server Server.
+     * @param sigma Parent.
+     * @param stream Stream.
      */
-    public PhListeningSocket(final Phi sigma, final ServerSocket server) {
+    public PhOutput(final Phi sigma, final OutputStream stream) {
         super(sigma);
         this.add(
             "φ",
             new AtComposite(
                 this,
-                rho -> new PhCloseable(rho.attr("σ").get(), server)
+                rho -> new PhCloseable(rho, stream)
             )
         );
         this.add(
-            "accept",
+            "write",
             new AtComposite(
                 this,
-                rho -> new PhConnectedSocket(rho.copy(), server.accept())
+                rho -> new Write(rho, stream)
             )
         );
         this.add(
-            "listen",
-            new AtComposite(
-                this,
-                rho -> {
-                    throw new ExFailure(
-                        "Already listening."
-                    );
-                }
-            )
-        );
-        this.add(
-            "connect",
+            "flush",
             new AtComposite(
                 this,
                 rho -> {
-                    throw new ExFailure(
-                        "This socket is listening, and cannot be connected."
-                    );
+                    stream.flush();
+                    return new Data.ToPhi(true);
                 }
             )
         );
+    }
+
+    /**
+     * Write.
+     *
+     * @since 0.0.0
+     */
+    private static final class Write extends PhDefault {
+
+        /**
+         * Ctor.
+         *
+         * @param sigma Parent.
+         * @param stream Stream.
+         */
+        Write(final Phi sigma, final OutputStream stream) {
+            super(sigma);
+            this.add("data", new AtFree());
+            this.add(
+                "φ",
+                new AtComposite(
+                    this,
+                    rho -> {
+                        stream.write(
+                            new Param(rho, "data")
+                                .strong(Long.class)
+                                .byteValue()
+                        );
+                        return new Data.ToPhi(true);
+                    }
+                )
+            );
+        }
     }
 }

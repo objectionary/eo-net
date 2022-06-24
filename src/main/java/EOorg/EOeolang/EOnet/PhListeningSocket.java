@@ -22,44 +22,62 @@
  * SOFTWARE.
  */
 
-package org.eolang.net;
+package EOorg.EOeolang.EOnet;
 
-import java.io.Closeable;
+import java.net.ServerSocket;
 import org.eolang.AtComposite;
-import org.eolang.Data;
+import org.eolang.ExFailure;
 import org.eolang.PhDefault;
 import org.eolang.Phi;
 
 /**
- * Closable Phi.
- * Has target attribute of type Closeable, and close method that closes the target
+ * Listening socket.
  *
  * @since 0.0.0
  */
-public final class PhCloseable extends PhDefault {
+public final class PhListeningSocket extends PhDefault {
 
     /**
      * Ctor.
      *
-     * @param sigma Parent.
-     * @param target The Closeable.
+     * @param sigma Original socket.
+     * @param server Server.
      */
-    public PhCloseable(final Phi sigma, final Closeable target) {
+    public PhListeningSocket(final Phi sigma, final ServerSocket server) {
         super(sigma);
         this.add(
             "φ",
             new AtComposite(
                 this,
-                rho -> rho.attr("σ").get()
+                rho -> new PhCloseable(rho.attr("σ").get(), server)
             )
         );
         this.add(
-            "close",
+            "accept",
+            new AtComposite(
+                this,
+                rho -> new PhConnectedSocket(rho.copy(), server.accept())
+            )
+        );
+        this.add(
+            "listen",
             new AtComposite(
                 this,
                 rho -> {
-                    target.close();
-                    return new Data.ToPhi(true);
+                    throw new ExFailure(
+                        "Already listening."
+                    );
+                }
+            )
+        );
+        this.add(
+            "connect",
+            new AtComposite(
+                this,
+                rho -> {
+                    throw new ExFailure(
+                        "This socket is listening, and cannot be connected."
+                    );
                 }
             )
         );
