@@ -5,9 +5,13 @@ assets:
 install: |
   pdd --file=/dev/null
 merge:
+  env:
+    JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
   script: |
     LC_ALL=C mvn clean install -Pqulice --errors -Dstyle.color=never
 release:
+  env:
+    JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
   script: |-
     mvn versions:set "-DnewVersion=${tag}" -Dstyle.color=never
     git commit -am "${tag}"
