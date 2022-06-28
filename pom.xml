@@ -87,6 +87,10 @@ SOFTWARE.
       <url>https://github.com/objectionary/eo-net</url>
     </site>
   </distributionManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.eolang</groupId>
