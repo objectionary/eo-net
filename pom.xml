@@ -31,7 +31,7 @@ SOFTWARE.
   </parent>
   <groupId>org.eolang</groupId>
   <artifactId>net</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.0</version>
   <packaging>jar</packaging>
   <name>eo-net</name>
   <description>Sockets for EO Programming Language</description>
