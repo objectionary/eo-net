@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.eolang.Data;
 import org.eolang.Dataized;
 import org.eolang.PhWith;
@@ -52,11 +53,11 @@ public final class PhOutputTest {
     @Test
     public void writes() {
         final byte data = (byte) new Random().nextInt();
-        final byte[] written = {-1};
+        final AtomicInteger written = new AtomicInteger(-1);
         final OutputStream stream = new OutputStream() {
             @Override
             public void write(final int data) {
-                written[0] = (byte) data;
+                written.set((byte) data);
             }
         };
         final PhOutput output = new PhOutput(Phi.Φ, stream);
@@ -75,10 +76,7 @@ public final class PhOutputTest {
                 output.attr("flush").get()
             )
         ).take();
-        MatcherAssert.assertThat(
-            written[0],
-            Matchers.equalTo(data)
-        );
+        MatcherAssert.assertThat((byte) written.get(), Matchers.equalTo(data));
     }
 
     /**
