@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 +package org.eolang.net
-+rt jvm org.eolang.net:1.0.0
-+version 1.0.0
++rt jvm org.eolang.net:0.0.0
++version 0.0.0
 
 [address port] > socket /string
