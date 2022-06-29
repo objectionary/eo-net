@@ -1,0 +1,10 @@
++package org.eolang.net
++alias org.eolang.net.socket
++junit
+
+[] > socket-is-address
+  eq. > @
+    socket
+      "yandex.ru"
+      80
+    "yandex.ru:80"
