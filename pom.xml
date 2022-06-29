@@ -31,7 +31,7 @@ SOFTWARE.
   </parent>
   <groupId>org.eolang</groupId>
   <artifactId>net</artifactId>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
   <name>eo-net</name>
   <description>Sockets for EO Programming Language</description>
@@ -87,10 +87,6 @@ SOFTWARE.
       <url>https://github.com/objectionary/eo-net</url>
     </site>
   </distributionManagement>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>org.eolang</groupId>
@@ -140,14 +136,6 @@ SOFTWARE.
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>8</source>
-          <target>8</target>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -158,7 +146,6 @@ SOFTWARE.
           <plugin>
             <groupId>com.qulice</groupId>
             <artifactId>qulice-maven-plugin</artifactId>
-            <version>0.19.1</version>
             <configuration>
               <excludes combine.children="append">
                 <exclude>pmd:.*</exclude>
