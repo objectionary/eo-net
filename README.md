@@ -12,14 +12,15 @@ This is how to connect to a TCP server and send 88:
 ```
 +alias org.eolang.net.socket
 
-seq > @
-  as-output. > output
-    connect.
-      socket
-        "localhost"
-        8080
-  output.write 88
-  output.flush
+[] > main
+  seq > @
+    as-output. > output
+      connect.
+        socket
+          "localhost"
+          8080
+    output.write 88
+    output.flush
 ```
 
 Server:
@@ -28,16 +29,17 @@ Server:
 
 +alias org.eolang.net.socket
 
-seq > @
-  write.
-    as-output. > output
-      accept. > conn
-        listen.
-          socket
-            "localhost"
-            8080
-    conn.as-input.read
-  output.flush
+[] > main
+  seq > @
+    write.
+      as-output. > output
+        accept. > conn
+          listen.
+            socket
+              "localhost"
+              8080
+      conn.as-input.read
+    output.flush
 ```
 
 ## How to Contribute
