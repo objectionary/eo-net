@@ -24,7 +24,6 @@
 // @checkstyle PackageNameCheck (1 line)
 package EOorg.EOeolang.EOnet;
 
-import EOorg.EOeolang.EOtxt.EOsprintf;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -59,19 +58,14 @@ public final class EOsocket extends PhDefault {
             "φ",
             new AtComposite(
                 this,
-                rho -> new PhWith(
-                    new PhWith(
-                        new PhWith(
-                            new EOsprintf(rho),
-                            0,
-                            new Data.ToPhi("%s:%d")
-                        ),
-                        1,
-                        rho.attr("address").get()
-                    ),
-                    2,
-                    rho.attr("port").get()
-                )
+                rho ->
+                    new Data.ToPhi(
+                        String.format(
+                            "%s:%d",
+                            new Param(rho, "address").strong(String.class),
+                            new Param(rho, "port").strong(Long.class)
+                        )
+                    )
             )
         );
         this.add(
