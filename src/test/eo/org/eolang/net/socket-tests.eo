@@ -1,4 +1,5 @@
 +alias org.eolang.net.socket
++home https://github.com/objectionary/eo-net
 +package org.eolang.net
 +tests
 
