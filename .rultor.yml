@@ -5,14 +5,14 @@ assets:
 install: |
   pdd --file=/dev/null
 merge:
-  env:
-    JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+# @todo #24:30min Enable LC_ALL=C in the merge process.
+#  Currently the build process fails because of the
+#  non-ASCII characters in the source code. The
+#  LC_ALL=C should be enabled to make sure that the
+#  build process is not affected by the locale settings.
   script: |
-    LC_ALL=C mvn clean install -Pqulice --errors -Dstyle.color=never
+    mvn clean install -Pqulice --errors -Dstyle.color=never
 release:
-  env:
-    JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
-    MAVEN_OPTS: --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.desktop/java.awt.font=ALL-UNNAMED
   script: |-
     mvn versions:set "-DnewVersion=${tag}" -Dstyle.color=never
     git commit -am "${tag}"
