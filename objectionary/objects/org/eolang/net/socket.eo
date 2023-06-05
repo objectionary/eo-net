@@ -19,8 +19,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
++home https://github.com/objectionary/eo-net
 +package org.eolang.net
-+rt jvm org.eolang.net:v0.0.1
-+version v0.0.1
++rt jvm org.eolang.net:0.0.2
++version 0.0.2
 
 [address port] > socket /string

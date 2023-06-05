@@ -1,6 +1,7 @@
-+package org.eolang.net
 +alias org.eolang.net.socket
-+junit
++home https://github.com/objectionary/eo-net
++package org.eolang.net
++tests
 
 [] > socket-is-address
   eq. > @
