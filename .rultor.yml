@@ -7,6 +7,11 @@ install: |
 merge:
   env:
     JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+# @todo #24:30min Enable LC_ALL=C in the merge process.
+#  Currently the build process fails because of the
+#  non-ASCII characters in the source code. The
+#  LC_ALL=C should be enabled to make sure that the
+#  build process is not affected by the locale settings.
   script: |
     mvn clean install -Pqulice --errors -Dstyle.color=never
 release:
