@@ -6,6 +6,9 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/kerelape/eo-sockets/blob/main/LICENSE.txt)
 [![codecov](https://github.com/objectionary/eo-net/actions/workflows/codecov.yml/badge.svg)](https://github.com/objectionary/eo-net/actions/workflows/codecov.yml)
 
+**This repository is deprecated! We've moved all EO objects from this repository
+to [objectionary/eo](https://github.com/objectionary/eo).**
+
 [EOLANG](https://www.eolang.org) socket object.
 
 This is how to connect to a TCP server and send 88:
